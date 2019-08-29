@@ -21,7 +21,11 @@ count:
 	@echo "Tests  SLOC: `sloccount tests/ runtests.py 2>/dev/null | grep 'python:'`"
 
 setup-venv: clean-venv
+ifneq (, $(shell command which python3;))
+	python3 -m venv .venv
+else
 	virtualenv -p python3 .venv
+endif
 
 setup-misc: clean
 	.venv/bin/pip install -r misc/.misc-requirements.txt
